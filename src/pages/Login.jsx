@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 const Login = () => {
   const [form, setForm] = useState({
-    email: '',
+    username: '',
     password: ''
   })
 
@@ -14,6 +14,28 @@ const Login = () => {
     const name = input.name
     const value = input.value
     setForm({ ...form, [name]: value })
+  }
+
+  const handleLogin = async (event) => {
+    event.preventDefault(); // Evitamos que la página se recargue
+    
+    console.log('estoy enviando la información...')
+
+    const ENDPOINT_URL = 'https://dummyjson.com/auth/login' // POST
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(form)
+    }
+
+    const response = await fetch(ENDPOINT_URL, options)
+
+    const data = await response.json()
+
+    console.log(data)
   }
 
   return (
@@ -26,15 +48,14 @@ const Login = () => {
           Login
         </Typography>
         {JSON.stringify(form)}
-        <Box component="form">
+        <Box component="form" onSubmit={handleLogin}>
           <TextField
-            type="email"
             margin="normal"
             required
             fullWidth
-            label="Email"
-            name="email"
-            value={form.email}
+            label="Username"
+            name="username"
+            value={form.username}
             onChange={handleChange}
           />
           <TextField
