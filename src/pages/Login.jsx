@@ -2,6 +2,7 @@ import { Container, Box, Paper, Avatar, Typography, TextField, Button } from '@m
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { useState } from 'react'
+import { login } from '../services/auth'
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -20,22 +21,15 @@ const Login = () => {
     event.preventDefault(); // Evitamos que la página se recargue
     
     console.log('estoy enviando la información...')
+    
+    const res = await login({
+      username: form.username,
+      password: form.password
+    })
+    
+    console.log(res)
 
-    const ENDPOINT_URL = 'https://dummyjson.com/auth/login' // POST
-
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(form)
-    }
-
-    const response = await fetch(ENDPOINT_URL, options)
-
-    const data = await response.json()
-
-    console.log(data)
+    localStorage.setItem('auth', JSON.stringify(res))
   }
 
   return (
