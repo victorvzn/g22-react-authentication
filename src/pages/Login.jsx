@@ -14,6 +14,7 @@ const Login = () => {
         </Typography>
         <Box component="form">
           <TextField
+            type="email"
             margin="normal"
             required
             fullWidth
@@ -26,7 +27,13 @@ const Login = () => {
             label="Password"
             type="password"
           />
-          <Button type="submit" fullWidth variant="contained">
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            size="large"
+            sx={{ mt: 2 }}
+          >
             Sign In
           </Button>
         </Box>
