@@ -1,6 +1,15 @@
 import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import { useEffect, useState } from "react"
+import { fetchProducts } from "../services/products"
 
 const Home = () => {
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    fetchProducts()
+      .then(data => setProducts(data))
+  }, [])
+
   return (
     <Container maxWidth="md">
       <Paper sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10, px: 3, py: 5 }}>
@@ -8,6 +17,8 @@ const Home = () => {
         <Typography variant='h5' gutterBottom>
           Product List
         </Typography>
+
+        {JSON.stringify(products)}
 
         <TableContainer component={Paper}>
           <Table>

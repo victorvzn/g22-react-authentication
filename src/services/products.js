@@ -7,7 +7,7 @@ export const fetchProducts = async () => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authentication': `Bearer ${user.token}`
+      'Authorization': `Bearer ${user.token}`
     }
   }
 
