@@ -1,14 +1,43 @@
-import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { fetchProducts } from "../services/products"
 
+import {
+  Container,
+  Pagination,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography
+} from "@mui/material"
+
 const Home = () => {
   const [products, setProducts] = useState([])
+  const [page, setPage] = useState(1)
+  const [paginationConfig, setPaginationConfig] = useState({
+    total: 0,
+    limit: 0,
+    skip: 0,
+  })
 
   useEffect(() => {
-    fetchProducts()
-      .then(data => setProducts(data.products))
-  }, [])
+    fetchProducts(page - 1)
+      .then(data => {
+        setPaginationConfig({
+          total: data.total,
+          limit: data.limit,
+          skip: data.skip,
+        })
+        setProducts(data.products)
+      })
+  }, [page])
+
+  const handlePagination = (event, value) => {
+    setPage(value)
+  }
 
   return (
     <Container maxWidth="md">
@@ -45,7 +74,7 @@ const Home = () => {
                     <TableCell>{product.stock}</TableCell>
                     <TableCell>{product.category}</TableCell>
                     <TableCell>
-                      <img src={product.thumbnail} width={120} />
+                      <img src={product.thumbnail} width={120} height={80} />
                     </TableCell>
                     <TableCell>
                       Actions
@@ -57,6 +86,13 @@ const Home = () => {
 
           </Table>
         </TableContainer>
+
+        <Pagination
+          count={Math.ceil(paginationConfig.total / paginationConfig.limit)}
+          page={page}
+          onChange={handlePagination}
+        />
+        -{page}-
       </Paper>
     </Container>
   )
