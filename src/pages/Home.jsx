@@ -7,7 +7,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchProducts()
-      .then(data => setProducts(data))
+      .then(data => setProducts(data.products))
   }, [])
 
   return (
@@ -18,7 +18,7 @@ const Home = () => {
           Product List
         </Typography>
 
-        {JSON.stringify(products)}
+        {/* {JSON.stringify(products)} */}
 
         <TableContainer component={Paper}>
           <Table>
@@ -36,19 +36,23 @@ const Home = () => {
             </TableHead>
 
             <TableBody>
-              <TableRow>
-                <TableCell>1</TableCell>
-                <TableCell>iPhone 9</TableCell>
-                <TableCell>S/ 549.00</TableCell>
-                <TableCell>94</TableCell>
-                <TableCell>Smarthphones</TableCell>
-                <TableCell>
-                  <img src={"https://i.dummyjson.com/data/products/1/thumbnail.jpg"} width={120} />
-                </TableCell>
-                <TableCell>
-                  Actions
-                </TableCell>
-              </TableRow>
+              {products.map(product => {
+                return (
+                  <TableRow key={product.id}>
+                    <TableCell>{product.id}</TableCell>
+                    <TableCell>{product.title}</TableCell>
+                    <TableCell>S/ {product.price}</TableCell>
+                    <TableCell>{product.stock}</TableCell>
+                    <TableCell>{product.category}</TableCell>
+                    <TableCell>
+                      <img src={product.thumbnail} width={120} />
+                    </TableCell>
+                    <TableCell>
+                      Actions
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
             </TableBody>
 
           </Table>
