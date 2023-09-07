@@ -5,7 +5,12 @@ import { useState } from 'react'
 import { login } from '../services/auth'
 import { useNavigate } from 'react-router-dom'
 
+
+import useAuth from '../hooks/useAuth.js'
+
 const Login = () => {
+  const { setAuth } = useAuth()
+
   const navigate = useNavigate()
 
   const [form, setForm] = useState({
@@ -32,7 +37,8 @@ const Login = () => {
     
     console.log(res)
 
-    localStorage.setItem('auth', JSON.stringify(res))
+    // localStorage.setItem('auth', JSON.stringify(res))
+    setAuth(res)
 
     setForm({
       username: '',
@@ -52,7 +58,7 @@ const Login = () => {
         <Typography variant='h5'>
           Login
         </Typography>
-        {JSON.stringify(form)}
+        {/* {JSON.stringify(form)} */}
         <Box component="form" onSubmit={handleLogin}>
           <TextField
             margin="normal"

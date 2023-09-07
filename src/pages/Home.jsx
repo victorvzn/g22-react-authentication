@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { fetchProducts } from "../services/products"
 
+import { useNavigate } from "react-router-dom"
+
 import {
   Container,
   Pagination,
@@ -23,6 +25,8 @@ const Home = () => {
     skip: 0,
   })
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     fetchProducts(page - 1)
       .then(data => {
@@ -32,6 +36,10 @@ const Home = () => {
           skip: data.skip,
         })
         setProducts(data.products)
+      })
+      .catch(err => {
+        console.log('>>>', err)
+        navigate('/login')
       })
   }, [page])
 

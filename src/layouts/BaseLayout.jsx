@@ -1,7 +1,17 @@
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material"
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
+
+import useAuth from "../hooks/useAuth"
 
 const BaseLayout = () => {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -10,12 +20,12 @@ const BaseLayout = () => {
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
               My APP
             </Typography>
-            <Button color="inherit">Logout</Button>
+            <Button color="inherit" onClick={handleLogout}>Logout</Button>
           </Toolbar>
         </AppBar>
       </Box>
       <main>
-        <Outlet />
+        {<Outlet />}
       </main>
     </>
   )
