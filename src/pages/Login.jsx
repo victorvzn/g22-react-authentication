@@ -3,8 +3,11 @@ import { Container, Box, Paper, Avatar, Typography, TextField, Button } from '@m
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { useState } from 'react'
 import { login } from '../services/auth'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const navigate = useNavigate()
+
   const [form, setForm] = useState({
     username: '',
     password: ''
@@ -30,6 +33,14 @@ const Login = () => {
     console.log(res)
 
     localStorage.setItem('auth', JSON.stringify(res))
+
+    setForm({
+      username: '',
+      password: ''
+    })
+
+    // Redirección al home page
+    navigate('/')
   }
 
   return (
