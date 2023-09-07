@@ -9,7 +9,7 @@ export const login = async ({ username, password }) => {
     body: JSON.stringify({
       username,
       password,
-      expiresInMins: 1 // 4h
+      expiresInMins: 240 // 4h
     })
   }
 
