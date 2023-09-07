@@ -88,11 +88,12 @@ const Home = () => {
         </TableContainer>
 
         <Pagination
+          sx={{ mt: 2 }}
           count={Math.ceil(paginationConfig.total / paginationConfig.limit)}
           page={page}
           onChange={handlePagination}
         />
-        -{page}-
+        Page: {page}
       </Paper>
     </Container>
   )
