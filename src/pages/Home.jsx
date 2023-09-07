@@ -41,7 +41,7 @@ const Home = () => {
 
   return (
     <Container maxWidth="md">
-      <Paper sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10, px: 3, py: 5 }}>
+      <Paper sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 3, px: 3, py: 5 }}>
         
         <Typography variant='h5' gutterBottom>
           Product List
